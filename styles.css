@@ -1,0 +1,218 @@
+body {
+    display: flex; /* Flexbox para centrar */
+    flex-direction: column; /* Alinear elementos de arriba hacia abajo */
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: flex-start; /* Alinear elementos desde la parte superior */
+    background-color: rgb(35, 81, 117);
+    height: 300vh; /* Altura larga para permitir el scroll */
+    margin: 0;
+    padding: 0;
+    position: relative; /* Necesario para que ::before funcione */
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('https://i.pinimg.com/originals/e4/78/04/e47804b0fbda61e594e64d4542b7dcdf.gif');
+    background-size: cover; /* Mantiene la imagen de fondo centrada y sin cortes */
+    background-position: center;
+    opacity: 0.7; /* Suaviza la opacidad para que no opaque demasiado el contenido */
+    z-index: -1;
+}
+
+a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:focus {
+    outline: none;
+}
+
+.gallery-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 3em;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
+    padding: 20px 0;
+    border: none;
+    outline: none;
+}
+
+.text {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.6em;
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    padding: 0 20px;
+}
+
+/* Animación para las imágenes */
+img.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+img.fade-in:nth-of-type(1) {
+    animation-delay: 0.2s;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Imágenes redondas */
+.round-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Bloques de imágenes con bordes */
+.block-image {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border: 5px solid rgb(43, 0, 130);
+    box-shadow: 0 0 10px rgba(12, 1, 50, 0.93);
+    transition: transform 0.3s ease-in-out; /* Transición suave en hover */
+}
+
+.block-image:hover {
+    transform: scale(1.05); /* Efecto de hover para aumentar tamaño */
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+/* Vista previa en hover */
+.preview-image {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 450px;
+    height: 450px;
+    border-radius: 10px;
+    overflow: visible;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.preview-image img {
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+}
+
+.image-container:hover .preview-image {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Lightbox */
+/* Estilos del Lightbox, sin cambios mayores */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.lightbox img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+.lightbox:target {
+    display: flex;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Botones de navegación del Lightbox */
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    user-select: none; /* Evita selección de texto al hacer clic */
+}
+
+.lightbox-prev {
+    left: 30px;
+}
+
+.lightbox-next {
+    right: 30px;
+}
+
+#caption {
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
